@@ -4,13 +4,13 @@ using System.Linq;
 using System.Net.Http;
 using HtmlAgilityPack;
 
-namespace swehockey
+namespace SweHockey
 {
 
     /// <summary>
     /// Parses HTML from stats.swehockey.se to create schedules
     /// </summary>
-    public class SweHockeyScheduleParser
+    public class ScheduleParser
     {
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace swehockey
         }
 
 
-        
+
         /// <summary>
         /// Finds the ID given to the game report on swehockey
         /// </summary>
@@ -180,9 +180,9 @@ namespace swehockey
 
     }
 
-   /// <summary>
-   /// Determines which parsing algorithm to use, since not all leagues' formats are exactly the same
-   /// </summary>
+    /// <summary>
+    /// Determines which parsing algorithm to use, since not all leagues' formats are exactly the same
+    /// </summary>
     public enum ParserMode
     {
         Unknown = 0,

@@ -5,12 +5,12 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using CommandLine;
-using swehockey;
+using SweHockey;
 
 namespace sweHockeyToIcalJSON
 {
     /// <summary>
-    /// This program demonstrates simple examples of how to use the <see cref="SweHockeyScheduleParser"/>
+    /// This program demonstrates simple examples of how to use the <see cref="ScheduleParser"/>
     /// </summary>
     class Program
     {
@@ -38,13 +38,13 @@ namespace sweHockeyToIcalJSON
                 if (string.IsNullOrEmpty(opts.inputHtml))
                 {
 
-                    html = SweHockeyScheduleParser.getHtml(opts.inputURL);
+                    html = ScheduleParser.getHtml(opts.inputURL);
                 }
                 else
                 {
                     html = System.IO.File.ReadAllText(opts.inputHtml);
                 }
-                var games = SweHockeyScheduleParser.gamesScheduleFromHtml(html);
+                var games = ScheduleParser.gamesScheduleFromHtml(html);
 
             });
             //TODO: error handling

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace swehockey
+namespace SweHockey
 {
     /// <summary>
     /// Representation of a game from swehockey
@@ -14,5 +14,6 @@ namespace swehockey
         public DateTime End { get; set; }
         public string Series { get; set; }
         public string Url { get; set; }
+        public string Results { get; set; }
     }
 }
