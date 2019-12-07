@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ParserServices.cs" />
     <Compile Include="ResultsParser.cs" />
     <Compile Include="ScheduleParser.cs" />
     <Compile Include="Game.cs" />

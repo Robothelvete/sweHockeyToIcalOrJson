@@ -14,6 +14,9 @@ namespace SweHockey
         public DateTime End { get; set; }
         public string Series { get; set; }
         public string Url { get; set; }
+        /// <summary>
+        /// The results of the game, if finished. Left as null for unfinished games
+        /// </summary>
         public string Results { get; set; }
     }
 }

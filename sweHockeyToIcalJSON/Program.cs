@@ -27,6 +27,9 @@ namespace sweHockeyToIcalJSON
 
             [Option('f', "output", Required = false, HelpText = "File to output text to (default writes to stdout)")]
             public string outputFile { get; set; }
+
+            [Option('r', "results", Required = false, HelpText = "Get results rather than schedule", Default = false)]
+            public bool results { get; set; }
         }
 
         static void Main(string[] args)
@@ -34,25 +37,49 @@ namespace sweHockeyToIcalJSON
             Parser.Default.ParseArguments<Options>(args).WithParsed<Options>(opts =>
             {
                 //TODO: basic sanity check of options
-                string html;
-                if (string.IsNullOrEmpty(opts.inputHtml))
+                if(opts.results)
                 {
-
-                    html = ScheduleParser.getHtml(opts.inputURL);
-                }
-                else
+                    handleResults(opts);
+                } else
                 {
-                    html = System.IO.File.ReadAllText(opts.inputHtml);
+                    handleSchedule(opts);
                 }
-                var games = ScheduleParser.gamesScheduleFromHtml(html);
 
             });
             //TODO: error handling
-
+            //TODO: write results to file or standard output
 
         }
 
-        
+        static void handleResults(Options opts)
+        {
+            string html;
+            if (string.IsNullOrEmpty(opts.inputHtml))
+            {
+
+                html = ResultsParser.FetchResultsHtml();
+            }
+            else
+            {
+                html = System.IO.File.ReadAllText(opts.inputHtml);
+            }
+            var gameResults = ResultsParser.GamesResultsFromHtml(html);
+        }
+
+        static void handleSchedule(Options opts)
+        {
+            string html;
+            if (string.IsNullOrEmpty(opts.inputHtml))
+            {
+
+                html = ScheduleParser.FetchScheduleHtml(opts.inputURL);
+            }
+            else
+            {
+                html = System.IO.File.ReadAllText(opts.inputHtml);
+            }
+            var games = ScheduleParser.GamesScheduleFromHtml(html);
+        }
 
     }
 
