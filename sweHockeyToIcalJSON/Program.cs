@@ -10,7 +10,7 @@ using swehockey;
 namespace sweHockeyToIcalJSON
 {
     /// <summary>
-    /// This program demonstrates simple examples of how to use the <see cref="SweHockeyParser"/>
+    /// This program demonstrates simple examples of how to use the <see cref="SweHockeyScheduleParser"/>
     /// </summary>
     class Program
     {
@@ -38,13 +38,13 @@ namespace sweHockeyToIcalJSON
                 if (string.IsNullOrEmpty(opts.inputHtml))
                 {
 
-                    html = SweHockeyParser.getHtml(opts.inputURL);
+                    html = SweHockeyScheduleParser.getHtml(opts.inputURL);
                 }
                 else
                 {
                     html = System.IO.File.ReadAllText(opts.inputHtml);
                 }
-                var games = SweHockeyParser.gamesScheduleFromHtml(html);
+                var games = SweHockeyScheduleParser.gamesScheduleFromHtml(html);
 
             });
             //TODO: error handling

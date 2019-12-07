@@ -10,7 +10,7 @@ namespace swehockey
     /// <summary>
     /// Parses HTML from stats.swehockey.se to create schedules
     /// </summary>
-    public class SweHockeyParser
+    public class SweHockeyScheduleParser
     {
 
         /// <summary>
