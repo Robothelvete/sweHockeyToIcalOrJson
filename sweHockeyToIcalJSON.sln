@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sweHockeyToIcalJSON", "sweHockeyToIcalJSON\sweHockeyToIcalJSON.csproj", "{CF721A30-3BB7-4256-84D2-63C0E475888E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "swehockeyParser", "swehockeyParser\swehockeyParser.csproj", "{F949B42C-0793-4005-BF47-D89B4341DEFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CF721A30-3BB7-4256-84D2-63C0E475888E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF721A30-3BB7-4256-84D2-63C0E475888E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF721A30-3BB7-4256-84D2-63C0E475888E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F949B42C-0793-4005-BF47-D89B4341DEFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F949B42C-0793-4005-BF47-D89B4341DEFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F949B42C-0793-4005-BF47-D89B4341DEFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F949B42C-0793-4005-BF47-D89B4341DEFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

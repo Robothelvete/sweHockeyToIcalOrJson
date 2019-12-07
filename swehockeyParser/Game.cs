@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace sweHockeyToIcalJSON
+namespace swehockey
 {
+    /// <summary>
+    /// Representation of a game from swehockey
+    /// </summary>
     public class Game
     {
         public string Uid { get; set; }
