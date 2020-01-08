@@ -59,8 +59,22 @@ namespace SweHockey
             }
             else
             {
-                return new Guid().ToString();
+                return Guid.NewGuid().ToString();
             }
+        }
+    }
+
+    /// <summary>
+    /// Games, grouped by league
+    /// </summary>
+    public class LeagueGames
+    {
+        public string League { get; set; }
+        public readonly List<Game> Games;
+        public LeagueGames(string leage)
+        {
+            this.League = leage;
+            this.Games = new List<Game>();
         }
     }
 }

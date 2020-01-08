@@ -35,15 +35,16 @@ namespace SweHockey
         /// </summary>
         /// <param name="html"></param>
         /// <returns></returns>
-        public static List<LeagueResults> GamesResultsFromHtml(string html)
+        /// <remarks>For a version that handles days in the future (and no results parsing), see <see cref="ScheduleParser.GamesScheduleFromDailyHtml(string)"/></remarks>
+        public static List<LeagueGames> GamesResultsFromHtml(string html)
         {
-            var results = new List<LeagueResults>();
+            var results = new List<LeagueGames>();
             var svCulture = System.Globalization.CultureInfo.GetCultureInfo("sv-SE");
 
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(html);
 
-            LeagueResults currentLeage = null;
+            LeagueGames currentLeage = null;
             string day = ""; //empty string so compiler will STFU
 
             foreach (var node in doc.DocumentNode.SelectNodes("//table[contains(@class,'tblContent')]/tr"))
@@ -59,7 +60,7 @@ namespace SweHockey
                 if(node.ChildNodes.Any(n => n.Attributes["colspan"]?.Value == "5"))
                 {
                     if(currentLeage != null) { results.Add(currentLeage); }
-                    currentLeage = new LeagueResults(System.Net.WebUtility.HtmlDecode(node.SelectSingleNode("td/a").InnerText.Trim()));
+                    currentLeage = new LeagueGames(System.Net.WebUtility.HtmlDecode(node.SelectSingleNode("td/a").InnerText.Trim()));
                     continue;
                 }
 
@@ -86,23 +87,13 @@ namespace SweHockey
                 game.Series = currentLeage.League; //redundant, but consistent 
 
 
-                currentLeage.Results.Add(game);
+                currentLeage.Games.Add(game);
             }
+            if (currentLeage != null) { results.Add(currentLeage); } //add the last league
+
 
             return results;
         }
     }
-    /// <summary>
-    /// Results per league
-    /// </summary>
-    public class LeagueResults
-    {
-        public string League { get; set; }
-        public readonly List<Game> Results;
-        public LeagueResults(string leage)
-        {
-            this.League = leage;
-            this.Results = new List<Game>();
-        }
-    }
+   
 }

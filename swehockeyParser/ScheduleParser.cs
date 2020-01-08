@@ -90,6 +90,66 @@ namespace SweHockey
             return games;
         }
 
+        /// <summary>
+        /// Parses the HTML to return the games in a day, grouped by league
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        /// <remarks>For a version that also parses results after the day is finished, see <see cref="ResultsParser.GamesResultsFromHtml(string)"/></remarks>
+        public static List<LeagueGames> GamesScheduleFromDailyHtml(string html)
+        {
+            var gamesByLeage = new List<LeagueGames>();
+            var svCulture = System.Globalization.CultureInfo.GetCultureInfo("sv-SE");
+
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(html);
+
+            LeagueGames currentLeage = null;
+            string day = ""; //empty string so compiler will STFU
+
+            foreach (var node in doc.DocumentNode.SelectNodes("//table[contains(@class,'tblContent')]/tr"))
+            {
+                if (node.ChildNodes.Any(n => n.Name == "th"))
+                {
+                    if (node.ChildNodes.Any(n => n.HasClass("tdTitleRight")))
+                    {
+                        day = node.ChildNodes.First(n => n.HasClass("tdTitleRight")).InnerText;
+                    }
+                    continue;
+                }
+                if (node.ChildNodes.Any(n => n.Attributes["colspan"]?.Value == "5"))
+                {
+                    if (currentLeage != null) { gamesByLeage.Add(currentLeage); }
+                    currentLeage = new LeagueGames(System.Net.WebUtility.HtmlDecode(node.SelectSingleNode("td/a").InnerText.Trim()));
+                    continue;
+                }
+
+                var strDate = day + " " + node.SelectSingleNode("td[1]").InnerText.Trim();
+                string url = node.SelectSingleNode("td/a")?.Attributes["href"].Value.Replace("&#xD;&#xA;", "");
+                var game = new Game()
+                {
+                    Tid = DateTime.ParseExact(strDate, "yyyy-MM-dd HH:mm", svCulture),
+                    Lag = ParserServices.CleanTeams(node.SelectSingleNode("td[2]").InnerText),
+                    Location = System.Net.WebUtility.HtmlDecode(node.SelectSingleNode("td[4]").InnerText)
+                };
+                game.End = game.Tid.AddHours(2); //basically just for compatibility reasons, no one should care if it's inaccurate
+                if (!string.IsNullOrEmpty(url))
+                {
+                    game.Url = ParserServices.CleanURL(url);
+                }
+                else { game.Url = ""; }
+                game.Uid = "swehockey_" + ParserServices.GetGameId(game.Url); //basically just for ical compatibility anyway
+                game.Series = currentLeage.League; //redundant, but consistent 
+
+
+                currentLeage.Games.Add(game);
+            }
+
+            if (currentLeage != null) { gamesByLeage.Add(currentLeage); } //add the last league
+
+
+            return gamesByLeage;
+        }
 
         /// <summary>
         /// Fetch the HTML from swehockey 
@@ -102,6 +162,21 @@ namespace SweHockey
             {
                 return client.GetStringAsync(url).Result;
             }
+        }
+
+        /// <summary>
+        /// Fetch the schedule HTML for a specific day
+        /// </summary>
+        /// <param name="date">Optional: which date to get the schedule from. Leave empty to get todays results</param>
+        /// <returns></returns>
+        public static string FetchScheduleHtml(DateTime? date = null)
+        {
+            if (!date.HasValue)
+            {
+                date = DateTime.Now;
+            }
+            string url = string.Format("http://stats.swehockey.se/GamesByDate/{0}/ByTime/90", date.Value.ToString("yyyy-MM-dd"));
+            return FetchScheduleHtml(url);
         }
 
         public static string ParseHtmlToJSON(string html)
