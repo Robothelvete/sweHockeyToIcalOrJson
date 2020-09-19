@@ -74,7 +74,7 @@ namespace SweHockey
                     Location = System.Net.WebUtility.HtmlDecode(node.SelectSingleNode("td[4]").InnerText)
                 };
                 game.End = game.Tid.AddHours(2); //basically just for compatibility reasons, no one should care if it's inaccurate
-                if (!string.IsNullOrEmpty(resultsNode.InnerText))
+                if (resultsNode != null && !string.IsNullOrEmpty(resultsNode.InnerText))
                 {
                     game.Results = resultsNode.InnerText;
                 }

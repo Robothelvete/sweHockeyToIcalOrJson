@@ -56,8 +56,13 @@ namespace sweHockeyToIcalJSON
             string html;
             if (string.IsNullOrEmpty(opts.inputHtml))
             {
-
-                html = ResultsParser.FetchResultsHtml(DateTime.Now.AddDays(1));
+                if(!string.IsNullOrEmpty(opts.inputURL))
+                {
+                    html = ScheduleParser.FetchScheduleHtml(opts.inputURL);
+                } else
+                {
+                    html = ResultsParser.FetchResultsHtml(DateTime.Now.AddDays(1));
+                }
             }
             else
             {
@@ -78,8 +83,8 @@ namespace sweHockeyToIcalJSON
             {
                 html = System.IO.File.ReadAllText(opts.inputHtml);
             }
-            //var games = ScheduleParser.GamesScheduleFromHtml(html);
-            var games = ScheduleParser.GamesScheduleFromDailyHtml(html);
+            var games = ScheduleParser.GamesScheduleFromHtml(html);
+            //var games = ScheduleParser.GamesScheduleFromDailyHtml(html);
         }
 
     }
