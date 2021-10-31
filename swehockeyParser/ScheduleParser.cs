@@ -175,7 +175,7 @@ namespace SweHockey
             {
                 date = DateTime.Now;
             }
-            string url = string.Format("http://stats.swehockey.se/GamesByDate/{0}/ByTime/90", date.Value.ToString("yyyy-MM-dd"));
+            string url = string.Format("https://stats.swehockey.se/GamesByDate/{0}/ByTime/90", date.Value.ToString("yyyy-MM-dd"));
             return FetchScheduleHtml(url);
         }
 
