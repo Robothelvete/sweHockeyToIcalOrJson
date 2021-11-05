@@ -10,23 +10,11 @@ namespace SweHockey
 {
 	public class StandingsParser
 	{
-		public static Dictionary<string, string> mapLeagueToSifID = new Dictionary<string, string>() {
-			{"SHL", "12318" },
-			{"HockeyAllsvenskan", "12320" },
-			{"ATG Hockeyettan Norra", "12444" },
-			{"ATG Hockeyettan Södra", "12384" },
-			{"ATG Hockeyettan Västra", "12358" },
-			{"ATG Hockeyettan Östra", "12436" },
-			{"SDHL", "12317" },
-			{"J20 SuperElit Top 10","10340" },
-			{"J20 - Nationell Södra", "12312" },
-			{"J20 - Nationell Norra", "12313" },
-		};
-
+		
 		/// <summary>
 		/// Gets the standings table from stats.swehockey.se
 		/// </summary>
-		/// <param name="leagueID">Which league to fetch the table for. Default is SHL. See <see cref="mapLeagueToSifID"/> for looking up some common league IDs</param>
+		/// <param name="leagueID">Which league to fetch the table for. Default is SHL. See <see cref="ParserServices.mapLeagueToSifID"/> for looking up some common league IDs</param>
 		/// <returns></returns>
 		public static string FetchStandingsHtml(string leagueID = "12318") {
 			string url = string.Format("https://stats.swehockey.se/ScheduleAndResults/Standings/{0}", leagueID);
