@@ -8,7 +8,7 @@ namespace SweHockey
 {
 	public class ParserServices
 	{
-		public static Dictionary<string, string> mapLeagueToSifID = new Dictionary<string, string>() {
+		public static Dictionary<string, string> mapLeagueToSifID2021 = new Dictionary<string, string>() {
 			{"SHL", "12318" },
 			{"HockeyAllsvenskan", "12320" },
 			{"ATG Hockeyettan Norra", "12444" },
@@ -19,6 +19,20 @@ namespace SweHockey
 			{"J20 SuperElit Top 10","10340" },
 			{"J20 - Nationell Södra", "12312" },
 			{"J20 - Nationell Norra", "12313" },
+		};
+		public static Dictionary<string, string> mapLeagueToSifID = new Dictionary<string, string>() {
+			{"SHL", "13469" },
+			{"HockeyAllsvenskan", "13470" },
+			{"ATG Hockeyettan Norra", "13509" },
+			{"ATG Hockeyettan Södra", "13532" },
+			{"ATG Hockeyettan Västra", "13475" },
+			{"ATG Hockeyettan Östra", "13534" },
+			{"SDHL", "13471" },
+			//{"J20 SuperElit Top 10","10340" },
+			{"J20 - Nationell Södra", "13468" },
+			{"J20 - Nationell Norra", "13467" },
+			{"TV-pucken Slutspel POJKAR","13515"},
+			{"TV-pucken Slutspel FLICKOR", "13767" }
 		};
 
 		/// <summary>
