@@ -16,7 +16,7 @@ namespace SweHockey
 		/// </summary>
 		/// <param name="leagueID">Which league to fetch the table for. Default is SHL. See <see cref="ParserServices.mapLeagueToSifID"/> for looking up some common league IDs</param>
 		/// <returns></returns>
-		public static string FetchStandingsHtml(string leagueID = "12318") {
+		public static string FetchStandingsHtml(string leagueID = "14677") {
 			string url = string.Format("https://stats.swehockey.se/ScheduleAndResults/Standings/{0}", leagueID);
 			using (HttpClient client = new HttpClient()) {
 				return client.GetStringAsync(url).Result;

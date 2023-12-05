@@ -20,7 +20,7 @@ namespace SweHockey
 			{"J20 - Nationell Södra", "12312" },
 			{"J20 - Nationell Norra", "12313" },
 		};
-		public static Dictionary<string, string> mapLeagueToSifID = new Dictionary<string, string>() {
+		public static Dictionary<string, string> mapLeagueToSifID2022 = new Dictionary<string, string>() {
 			{"SHL", "13469" },
 			{"HockeyAllsvenskan", "13470" },
 			{"ATG Hockeyettan Norra", "13509" },
@@ -34,6 +34,21 @@ namespace SweHockey
 			{"TV-pucken Slutspel POJKAR","13515"},
 			{"TV-pucken Slutspel FLICKOR", "13767" }
 		};
+		public static Dictionary<string, string> mapLeagueToSifID = new Dictionary<string, string>() {
+			{"SHL", "14677" },
+			{"HockeyAllsvenskan", "14678" },
+			{"Hockeyettan Norra", "14784" },
+			{"Hockeyettan Södra", "14834" },
+			{"Hockeyettan Västra", "14686" },
+			{"Hockeyettan Östra", "14853" },
+			{"SDHL", "14687" },
+			//{"J20 SuperElit Top 10","10340" },
+			{"J20 - Nationell Södra", "14709" },
+			{"J20 - Nationell Norra", "14708" },
+			//{"TV-pucken Slutspel POJKAR","13515"},
+			//{"TV-pucken Slutspel FLICKOR", "13767" }
+		};
+
 
 		/// <summary>
 		/// Cleans up the URL to a game that comes from swehockey
