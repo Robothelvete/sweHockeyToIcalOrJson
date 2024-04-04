@@ -1,11 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sweHockeyToIcalJSON", "sweHockeyToIcalJSON\sweHockeyToIcalJSON.csproj", "{CF721A30-3BB7-4256-84D2-63C0E475888E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sweHockeyToIcalJSON", "sweHockeyToIcalJSON\sweHockeyToIcalJSON.csproj", "{CF721A30-3BB7-4256-84D2-63C0E475888E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "swehockeyParser", "swehockeyParser\swehockeyParser.csproj", "{F949B42C-0793-4005-BF47-D89B4341DEFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "swehockeyParser", "swehockeyParser\swehockeyParser.csproj", "{F949B42C-0793-4005-BF47-D89B4341DEFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

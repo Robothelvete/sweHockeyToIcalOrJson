@@ -51,11 +51,11 @@ namespace sweHockeyToIcalJSON
 
 		}
 
-		static void handleResults(Options opts) {
+		static async void handleResults(Options opts) {
 			string html;
 			if (string.IsNullOrEmpty(opts.inputHtml)) {
 				if (!string.IsNullOrEmpty(opts.inputURL)) {
-					html = ScheduleParser.FetchScheduleHtml(opts.inputURL);
+					html = await ScheduleParser.FetchScheduleHtml(opts.inputURL);
 				} else {
 					html = ResultsParser.FetchResultsHtml(DateTime.Now.AddDays(1));
 				}
@@ -65,11 +65,11 @@ namespace sweHockeyToIcalJSON
 			var gameResults = ResultsParser.GamesResultsFromHtml(html);
 		}
 
-		static void handleSchedule(Options opts) {
+		static async void handleSchedule(Options opts) {
 			string html;
 			if (string.IsNullOrEmpty(opts.inputHtml)) {
 
-				html = ScheduleParser.FetchScheduleHtml(opts.inputURL);
+				html = await ScheduleParser.FetchScheduleHtml(opts.inputURL);
 			} else {
 				html = System.IO.File.ReadAllText(opts.inputHtml);
 			}
