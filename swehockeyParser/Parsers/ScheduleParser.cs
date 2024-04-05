@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -23,7 +24,6 @@ namespace SweHockey
 		public static List<Game> GamesScheduleFromHtml(string html, ParserMode mode = ParserMode.Unknown)
 		{
 			List<Game> games = new List<Game>();
-			var svCulture = System.Globalization.CultureInfo.GetCultureInfo("sv-SE");
 
 			HtmlDocument doc = new HtmlDocument();
 			doc.LoadHtml(html);
@@ -75,7 +75,7 @@ namespace SweHockey
 				{
 					Lag = teams,
 					Location = location,
-					Tid = DateTime.ParseExact(strDate.Trim(), "yyyy-MM-dd HH:mm", svCulture),
+					Tid = DateTime.ParseExact(strDate.Trim(), "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)
 				};
 				game.End = game.Tid.AddHours(3); //basically just for ical compatibility anyway
 				if (!string.IsNullOrEmpty(url))
@@ -104,7 +104,6 @@ namespace SweHockey
 		public static List<LeagueGames> GamesScheduleFromDailyHtml(string html)
 		{
 			var gamesByLeage = new List<LeagueGames>();
-			var svCulture = System.Globalization.CultureInfo.GetCultureInfo("sv-SE");
 
 			HtmlDocument doc = new HtmlDocument();
 			doc.LoadHtml(html);
@@ -133,7 +132,7 @@ namespace SweHockey
 				string url = node.SelectSingleNode("td/a")?.Attributes["href"].Value.Replace("&#xD;&#xA;", "");
 				var game = new Game()
 				{
-					Tid = DateTime.ParseExact(strDate, "yyyy-MM-dd HH:mm", svCulture),
+					Tid = DateTime.ParseExact(strDate, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture),
 					Lag = ParserServices.CleanTeams(node.SelectSingleNode("td[2]").InnerText),
 					Location = System.Net.WebUtility.HtmlDecode(node.SelectSingleNode("td[4]").InnerText)
 				};
@@ -193,6 +192,7 @@ namespace SweHockey
 
 		public static string OutputToIcal(IEnumerable<Game> games)
 		{
+			var tzSweden = TimeZoneInfo.FindSystemTimeZoneById("Central European Standard Time");
 
 			var sb = new StringBuilder();
 			sb.AppendLine("BEGIN:VCALENDAR");
@@ -202,8 +202,8 @@ namespace SweHockey
 			{
 				sb.AppendLine("BEGIN:VEVENT");
 				sb.AppendLine("UID:" + game.Uid);
-				sb.AppendLine("DTSTART:" + game.Tid.ToUniversalTime().ToString("yyyyMMddTHHmmss") + "Z");
-				sb.AppendLine("DTEND:" + game.End.ToUniversalTime().ToString("yyyyMMddTHHmmss") + "Z");
+				sb.AppendLine("DTSTART:" + TimeZoneInfo.ConvertTimeToUtc(game.Tid, tzSweden).ToString("yyyyMMddTHHmmss") + "Z");
+				sb.AppendLine("DTEND:" + TimeZoneInfo.ConvertTimeToUtc(game.End, tzSweden).ToString("yyyyMMddTHHmmss") + "Z");
 				sb.AppendLine("DTSTAMP:" + DateTime.UtcNow.ToString("yyyyMMddTHHmmss") + "Z"); //TODO: could this be somehow set from data instead?
 				sb.AppendLine("DESCRIPTION:" + game.Series);
 				sb.AppendLine("SUMMARY:" + game.Lag);
